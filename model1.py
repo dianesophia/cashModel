@@ -1,5 +1,3 @@
-
-import cv2
 import cvzone
 import math
 import time
@@ -25,7 +23,7 @@ classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "trai
 '''
 #nc: 6
 
-classNames = ['Real Fifty', 'Fifty', 'Real Five Hundred', 'Real One Hundred', 'Real One Thousand', 'Real Twenty', 'Real Two Hundred']
+classNames = ['Real Fifty', 'Real Five Hundred', 'Real One Hundred', 'Real One Thousand', 'Real Twenty', 'Real Two Hundred']
 
 # Load the YOLO model
 def load_model():
@@ -40,7 +38,7 @@ def play_tts(text):
 
 # Function to process a single frame and return detection results
 def process_frame(model, img, output_interval, last_output_time):
-    results = model(img, stream=True, conf=0.5)
+    results = model(img, stream=True , conf=0.5)
     current_detections = set()
     current_time = time.time()
 

@@ -5,18 +5,18 @@ import math
 import time
 import pyttsx3
 
-# Initialize text-to-speech engine
-engine = pyttsx3.init()
-engine.setProperty('rate', 150)
-engine.setProperty('volume', 0.9)
+# text-to-speech
+#engine = pyttsx3.init()
+#engine.setProperty('rate', 150)
+#engine.setProperty('volume', 0.9)
 
 # Initialize webcam
-cap = cv2.VideoCapture(0)  # Use the default camera (change to 1 if needed)
-cap.set(3, 640)  # Lower resolution for performance
+cap = cv2.VideoCapture(0)  #(change to 1 if needed)
+cap.set(3, 640)
 cap.set(4, 480)
 
-# Load YOLO model
-model = YOLO("moneyModel.pt")
+#YOLO model
+model = YOLO("nano20.pt")
 
 # Class names
 classNames = ['Real Fifty', 'Real Five Hundred', 'Real One Hundred',
@@ -26,15 +26,14 @@ prev_frame_time = 0
 new_frame_time = 0
 
 while True:
-    # Capture frame from webcam
     success, img = cap.read()
     if not success:
         print("Failed to capture frame from webcam. Retrying...")
-        continue  # Skip this iteration if frame capture fails
+        continue
 
     new_frame_time = time.time()
 
-    # Run YOLO model inference
+
     results = model(img, stream=True)
 
     for r in results:
@@ -56,9 +55,9 @@ while True:
             # Display label
             cvzone.putTextRect(img, label, (max(0, x1), max(35, y1)), scale=1, thickness=1)
 
-            # Speak the detected class
-            engine.say(f"Detected {classNames[cls]}")
-            engine.runAndWait()
+            # Speak
+            #engine.say(f"Detected {classNames[cls]}")
+            #engine.runAndWait()
 
     # Calculate FPS
     fps = 1 / (new_frame_time - prev_frame_time)
@@ -68,10 +67,8 @@ while True:
     # Display the frame
     cv2.imshow("Image", img)
 
-    # Exit on 'q' key press
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Release resources
 cap.release()
 cv2.destroyAllWindows()

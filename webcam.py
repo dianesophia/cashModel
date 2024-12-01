@@ -6,9 +6,9 @@ import time
 import pyttsx3
 
 # text-to-speech
-#engine = pyttsx3.init()
-#engine.setProperty('rate', 150)
-#engine.setProperty('volume', 0.9)
+engine = pyttsx3.init()
+engine.setProperty('rate', 150)
+engine.setProperty('volume', 0.9)
 
 # Initialize webcam
 cap = cv2.VideoCapture(0)  #(change to 1 if needed)
@@ -16,7 +16,7 @@ cap.set(3, 640)
 cap.set(4, 480)
 
 #YOLO model
-model = YOLO("nano20.pt")
+model = YOLO("nano40.pt")
 
 # Class names
 classNames = ['Real Fifty', 'Real Five Hundred', 'Real One Hundred',
@@ -56,8 +56,8 @@ while True:
             cvzone.putTextRect(img, label, (max(0, x1), max(35, y1)), scale=1, thickness=1)
 
             # Speak
-            #engine.say(f"Detected {classNames[cls]}")
-            #engine.runAndWait()
+            engine.say(f"Detected {classNames[cls]}")
+            engine.runAndWait()
 
     # Calculate FPS
     fps = 1 / (new_frame_time - prev_frame_time)
